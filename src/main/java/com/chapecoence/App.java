@@ -3,7 +3,8 @@ package com.chapecoence;
 import java.io.IOException;
 
 /**
- * Hello world!
+ * Clase principal
+ * @author josuepma
  *
  */
 public class App 
