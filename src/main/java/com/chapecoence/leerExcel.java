@@ -32,6 +32,12 @@ public class leerExcel {
         this.path = path;
     }
 
+    /**
+     * Dado un archivo .xlsx, Se convierte en un LinkedHashMap< Key, Arraylist>
+     *
+     * @return
+     * @throws IOException
+     */
     public LinkedHashMap<String, List<String>> getHashMapFromFile() throws IOException {
         LinkedHashMap<String, List<String>> map = new LinkedHashMap<>();
         File file = new File(this.path);
