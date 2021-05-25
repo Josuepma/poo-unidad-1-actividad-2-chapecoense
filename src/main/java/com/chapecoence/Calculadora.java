@@ -13,7 +13,7 @@ import java.util.Stack;
  */
 public class Calculadora {
     private String expresion;
-    private Double x;
+    private ArrayList<Double> x = null;
     final private String patronTrigo = "(sin|cos|tan|sqrt)";
 
     /**
@@ -50,6 +50,10 @@ public class Calculadora {
 
         if (this.expresion.contains("!exit")){
             return false;
+        }
+
+        if (this.expresion.contains("read")){
+            System.out.println(this.expresion.split(""));
         }
 
         System.out.println("Resultado: " + compute(this.expresion));
@@ -122,6 +126,27 @@ public class Calculadora {
         return list;
     }
 
+    /**
+     *
+     * Método que guarda los valores de cada X
+     * @param valores el cual recibe los valores
+     */
+    private void setxValores(String valores){
+        valores = valores.replace('[','0');
+        valores = valores.replace(']','0');
+
+        String [] auxiliar = valores.split(",");
+
+        try {
+            for (int i = 0; i < auxiliar.length; i++) {
+                this.x.add(Double.parseDouble(auxiliar[i]));
+                System.out.println(Double.parseDouble(auxiliar[i]));
+            }
+        }catch (NumberFormatException e){
+            throw new NumberFormatException("El valor ingresado no es un numero" + e.getMessage());
+        }
+    }
+
     private String clean(String str) {
         String cleaned = str.replace(" ", "");
 
@@ -129,11 +154,12 @@ public class Calculadora {
         cleaned = cleaned.replace("]", ")");
         cleaned = cleaned.toLowerCase();
 
-        if (cleaned.contains("x")) {
+        if (cleaned.contains("x") && !cleaned.contains("_")) {
             if (x == null){
                 System.out.println("Ingresa el valor de x:");
-                Scanner sc = new Scanner(System.in);
-                x = sc.nextDouble();
+                Scanner leer = new Scanner(System.in);
+                String auxiliar = leer.next();
+                this.setxValores(auxiliar);
             }
             cleaned = replace(cleaned);
         }
